@@ -11,6 +11,11 @@ class Task {
 
    Map<String, dynamic> toJson() {
     return {"description": description, "completed": completed};
+  }  
+
+   @override
+  String toString() {
+    return 'Task{description: $description, completed: $completed}';
   }
 
 }
