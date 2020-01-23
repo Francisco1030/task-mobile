@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/service/api_service.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+     ApiService().getTasks().then((value) => print("value: $value"));
     return Container(
       
     );

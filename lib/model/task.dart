@@ -19,7 +19,7 @@ class Task {
     return 'Task{description: $description, completed: $completed}';
   }
 
-  List<Task> taskFromJson(String jsonData) {
+  static List<Task> taskFromJson(String jsonData) {
     final data = json.decode(jsonData);
     return List<Task>.from(data.map((item) => Task.fromJson(item)));
   }
@@ -28,4 +28,5 @@ class Task {
     final jsonData = data.toJson();
     return json.encode(jsonData);
   }
+
 }
