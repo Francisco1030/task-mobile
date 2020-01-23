@@ -8,4 +8,9 @@ class Task {
     return Task(
         description: map["description"], completed: map["completed"]);
   }
+
+   Map<String, dynamic> toJson() {
+    return {"description": description, "completed": completed};
+  }
+
 }
