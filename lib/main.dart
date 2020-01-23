@@ -13,11 +13,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  ApiService apiService;
+
+  @override
+  void initState() {
+    super.initState();
+    apiService = ApiService();
+  }
+
   @override
   Widget build(BuildContext context) {
-     ApiService().getTasks().then((value) => print("value: $value"));
-    return Container(
-      
-    );
+    ApiService().getTasks().then((value) => print("value: $value"));
+    return Container();
   }
 }
