@@ -23,4 +23,9 @@ class Task {
     final data = json.decode(jsonData);
     return List<Task>.from(data.map((item) => Task.fromJson(item)));
   }
+
+  String taskToJson(Task data) {
+    final jsonData = data.toJson();
+    return json.encode(jsonData);
+  }
 }
