@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/pages/form_task.dart';
 import 'package:task/pages/home.dart';
 
 class MyApp extends StatelessWidget {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       //home: MyHomePage(title: 'Teste do app'),
       routes: {
         '/': (context) => Home(),
-        //'/settings': (context) => SettingsPage(),
+        '/form-task': (context) => FormTask(),
         //'/menu': (context) => DrawerCustom(),
       },
     );

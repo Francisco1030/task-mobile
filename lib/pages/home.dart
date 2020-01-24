@@ -22,6 +22,14 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.white),
+             actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/form-task');
+            },
+          )
+        ],
             title: Text(
               "Lista de tarefas",
               style: TextStyle(color: Colors.white),
