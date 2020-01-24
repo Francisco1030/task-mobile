@@ -42,9 +42,9 @@ class _FormTask extends State<FormTask> {
                   child: RaisedButton(
                     onPressed: () {
                       if (_isFieldDescriptionValid == null ||
-                          _isFieldCompletedValid == null ||
-                          !_isFieldDescriptionValid ||
-                          !_isFieldCompletedValid) {
+                          //_isFieldCompletedValid == null ||
+                          //!_isFieldCompletedValid
+                          !_isFieldDescriptionValid) {
                         _scaffoldState.currentState.showSnackBar(
                           SnackBar(
                             content: Text("Por favor preencha todos os campos"),
@@ -54,10 +54,10 @@ class _FormTask extends State<FormTask> {
                       }
                       setState(() => _isLoading = true);
                       String description = _controllerDescription.text.toString();
-                      bool completed = bool.fromEnvironment(_controllerCompleted.text.toString());
+                      //bool completed = bool.fromEnvironment(_controllerCompleted.text.toString());
       
                       Task task =
-                          Task(description: description, completed: completed);
+                          Task(description: description);
                       _apiService.createTask(task).then((isSuccess) {
                         setState(() => _isLoading = false);
                         if (isSuccess) {
@@ -75,7 +75,7 @@ class _FormTask extends State<FormTask> {
                         color: Colors.white,
                       ),
                     ),
-                    color: Colors.orange[600],
+                    color: Colors.blue,
                   ),
                 )
               ],
