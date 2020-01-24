@@ -76,7 +76,7 @@ Widget _buildListView(List<Task> tasks) {
                     task.description,
                     style: Theme.of(context).textTheme.title,
                   ),
-                  //Text(task.completed),
+                  Text("ID: " + task.id),
                   //Text(profile.age.toString()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

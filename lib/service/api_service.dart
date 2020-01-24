@@ -26,4 +26,17 @@ class ApiService {
       return false;
     }
   }
+
+  Future<bool> updateTask(Task data) async {
+    final response = await client.put(
+      "$baseUrl/tasks/${data.id}",
+      headers: {"content-type": "application/json"},
+      body: Task.taskToJson(data),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
