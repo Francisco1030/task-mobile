@@ -5,6 +5,10 @@ import 'package:task/service/api_service.dart';
 final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
 class FormTask extends StatefulWidget {
+  Task task;
+
+  FormTask({this.task});
+
   @override
   _FormTask createState() => _FormTask();
 }
@@ -18,13 +22,22 @@ class _FormTask extends State<FormTask> {
   TextEditingController _controllerCompleted = TextEditingController();
 
   @override
+  void initState() {
+    if (widget.task != null) {
+      _isFieldDescriptionValid = true;
+      _controllerDescription = widget.task.description as TextEditingController;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-     key: _scaffoldState,
+      key: _scaffoldState,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
-          "Cadastrar Tarefa",
+          widget.task == null ? "Cadastrar Tarefa" : "Editar Tarefa",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -36,41 +49,53 @@ class _FormTask extends State<FormTask> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 _buildTextFieldDescription(),
-               // _buildTextFieldCompleted(),
+                // _buildTextFieldCompleted(),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: RaisedButton(
                     onPressed: () {
                       if (_isFieldDescriptionValid == null ||
-                          //_isFieldCompletedValid == null ||
-                          //!_isFieldCompletedValid
                           !_isFieldDescriptionValid) {
                         _scaffoldState.currentState.showSnackBar(
                           SnackBar(
-                            content: Text("Por favor preencha todos os campos"),
+                            content: Text("Por favor, preencha todos os campos"),
                           ),
                         );
                         return;
                       }
                       setState(() => _isLoading = true);
                       String description = _controllerDescription.text.toString();
-                      //bool completed = bool.fromEnvironment(_controllerCompleted.text.toString());
-      
                       Task task =
                           Task(description: description);
-                      _apiService.createTask(task).then((isSuccess) {
-                        setState(() => _isLoading = false);
-                        if (isSuccess) {
-                          Navigator.pop(_scaffoldState.currentState.context);
-                        } else {
-                          _scaffoldState.currentState.showSnackBar(SnackBar(
-                            content: Text("Falha no envio de dados"),
-                          ));
-                        }
-                      });
+                      if (widget.task == null) {
+                        _apiService.createTask(task).then((isSuccess) {
+                          setState(() => _isLoading = false);
+                          if (isSuccess) {
+                            Navigator.pop(_scaffoldState.currentState.context);
+                          } else {
+                            _scaffoldState.currentState.showSnackBar(SnackBar(
+                              content: Text("Falha no envio de dados"),
+                            ));
+                          }
+                        });
+                      } else {
+                        task.id = widget.task.id;
+                        _apiService.updateTask(task).then((isSuccess) {
+                          setState(() => _isLoading = false);
+                          if (isSuccess) {
+                            Navigator.pop(_scaffoldState.currentState.context);
+                          } else {
+                            _scaffoldState.currentState.showSnackBar(SnackBar(
+                              content: Text("Falha na atualização dos dados"),
+                            ));
+                          }
+                        });
+                      }
                     },
                     child: Text(
-                      "Enviar".toUpperCase(),
+                      widget.task == null
+                          ? "Cadastrar".toUpperCase()
+                          : "Atualizar".toUpperCase(),
                       style: TextStyle(
                         color: Colors.white,
                       ),

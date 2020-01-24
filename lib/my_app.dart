@@ -3,7 +3,7 @@ import 'package:task/pages/form_task.dart';
 import 'package:task/pages/home.dart';
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         '/form-task': (context) => FormTask(),
+        '/form-task/task': (context) => FormTask(),
         //'/menu': (context) => DrawerCustom(),
       },
     );
