@@ -39,4 +39,16 @@ class ApiService {
       return false;
     }
   }
+
+  Future<bool> deleteTask(String id) async {
+    final response = await client.delete(
+      "$baseUrl/tasks/$id",
+      headers: {"content-type": "application/json"},
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
