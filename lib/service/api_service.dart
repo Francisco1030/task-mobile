@@ -2,7 +2,6 @@ import '../model/task.dart';
 import 'package:http/http.dart' show Client;
 
 class ApiService {
-
   final String baseUrl = "http://localhost:3000";
   Client client = Client();
 
@@ -15,4 +14,16 @@ class ApiService {
     }
   }
 
+  Future<bool> createTask(Task data) async {
+    final response = await client.post(
+      "$baseUrl/tasks",
+      headers: {"content-type": "application/json"},
+      body: Task.taskToJson(data),
+    );
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
