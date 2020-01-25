@@ -20,7 +20,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    //ApiService().getTasks().then((value) => print("value: $value"));
+    this.context = context;
+
     return Scaffold(
         appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.white),
@@ -85,7 +86,44 @@ Widget _buildListView(List<Task> tasks) {
                     children: <Widget>[
                       FlatButton(
                         onPressed: () {
-                          // TODO: do something in here
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (context) {
+                          //           return AlertDialog(
+                          //             title: Text("Warning"),
+                          //             content: Text(
+                          //                 "Are you sure want to delete data profile ${task.description}?"),
+                          //             actions: <Widget>[
+                          //               FlatButton(
+                          //                 child: Text("Yes"),
+                          //                 onPressed: () {
+                          //                   Navigator.pop(context);
+                          //                   apiService.deleteTask(task.id)
+                          //                       .then((isSuccess) {
+                          //                     if (isSuccess) {
+                          //                       setState(() {});
+                          //                       Scaffold.of(context)
+                          //                           .showSnackBar(SnackBar(
+                          //                               content: Text(
+                          //                                   "Delete data success")));
+                          //                     } else {
+                          //                       Scaffold.of(context)
+                          //                           .showSnackBar(SnackBar(
+                          //                               content: Text(
+                          //                                   "Delete data failed")));
+                          //                     }
+                          //                   });
+                          //                 },
+                          //               ),
+                          //               FlatButton(
+                          //                 child: Text("No"),
+                          //                 onPressed: () {
+                          //                   Navigator.pop(context);
+                          //                 },
+                          //               )
+                          //             ],
+                          //           );
+                          // });
                         },
                         child: Text(
                           "Deletar",
@@ -94,6 +132,12 @@ Widget _buildListView(List<Task> tasks) {
                       ),
                       FlatButton(
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FormTask(task: task),
+                            ),
+                          );
                           //Navigator.of(context).pushNamed('/form-task/task');
                         },
                         child: Text(

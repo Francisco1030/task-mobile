@@ -5,7 +5,7 @@ import 'package:task/service/api_service.dart';
 final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
 class FormTask extends StatefulWidget {
-  Task task;
+  final Task task;
 
   FormTask({this.task});
 
@@ -25,7 +25,7 @@ class _FormTask extends State<FormTask> {
   void initState() {
     if (widget.task != null) {
       _isFieldDescriptionValid = true;
-      _controllerDescription = widget.task.description as TextEditingController;
+      _controllerDescription.text = widget.task.description;
     }
     super.initState();
   }
