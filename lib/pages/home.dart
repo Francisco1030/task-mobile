@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
               if (snapshot.hasError) {
                 return Center(
                   child: Text(
-                      "Something wrong with message: ${snapshot.error.toString()}"),
+                      "Algo errado com: ${snapshot.error.toString()}"),
                 );
               } else if (snapshot.connectionState == ConnectionState.done) {
                 List<Task> tasks = snapshot.data;
@@ -86,44 +86,7 @@ Widget _buildListView(List<Task> tasks) {
                     children: <Widget>[
                       FlatButton(
                         onPressed: () {
-                          //     showDialog(
-                          //         context: context,
-                          //         builder: (context) {
-                          //           return AlertDialog(
-                          //             title: Text("Warning"),
-                          //             content: Text(
-                          //                 "Are you sure want to delete data profile ${task.description}?"),
-                          //             actions: <Widget>[
-                          //               FlatButton(
-                          //                 child: Text("Yes"),
-                          //                 onPressed: () {
-                          //                   Navigator.pop(context);
-                          //                   apiService.deleteTask(task.id)
-                          //                       .then((isSuccess) {
-                          //                     if (isSuccess) {
-                          //                       setState(() {});
-                          //                       Scaffold.of(context)
-                          //                           .showSnackBar(SnackBar(
-                          //                               content: Text(
-                          //                                   "Delete data success")));
-                          //                     } else {
-                          //                       Scaffold.of(context)
-                          //                           .showSnackBar(SnackBar(
-                          //                               content: Text(
-                          //                                   "Delete data failed")));
-                          //                     }
-                          //                   });
-                          //                 },
-                          //               ),
-                          //               FlatButton(
-                          //                 child: Text("No"),
-                          //                 onPressed: () {
-                          //                   Navigator.pop(context);
-                          //                 },
-                          //               )
-                          //             ],
-                          //           );
-                          // });
+                          _showDialog(context, task);
                         },
                         child: Text(
                           "Deletar",
@@ -156,4 +119,40 @@ Widget _buildListView(List<Task> tasks) {
       itemCount: tasks.length,
     ),
   );
+}
+
+void _showDialog(BuildContext context, Task task) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Atenção"),
+          content: Text(
+              "Tem certeza de que deseja excluir a tarefa: ${task.description}?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Sim"),
+              onPressed: () {
+                Navigator.pop(context);
+                //apiService.deleteTask(task.id).then((isSuccess) {
+                  // if (isSuccess) {
+                  //   setState(() {});
+                  //   Scaffold.of(context).showSnackBar(
+                  //       SnackBar(content: Text("Delete data success")));
+                  // } else {
+                  //   Scaffold.of(context).showSnackBar(
+                  //       SnackBar(content: Text("Delete data failed")));
+                  // }
+                //});
+              },
+            ),
+            FlatButton(
+              child: Text("Não"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        );
+      });
 }
