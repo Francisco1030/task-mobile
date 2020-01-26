@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:task/model/task.dart';
 import 'package:task/pages/form_task.dart';
 import 'package:task/service/api_service.dart';
 
 class Home extends StatefulWidget {
+  
+  Home();
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -44,8 +48,7 @@ class _HomeState extends State<Home> {
                 (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
               if (snapshot.hasError) {
                 return Center(
-                  child: Text(
-                      "Algo errado com: ${snapshot.error.toString()}"),
+                  child: Text("Algo errado com: ${snapshot.error.toString()}"),
                 );
               } else if (snapshot.connectionState == ConnectionState.done) {
                 List<Task> tasks = snapshot.data;
@@ -121,7 +124,7 @@ Widget _buildListView(List<Task> tasks) {
   );
 }
 
-void _showDialog(BuildContext context, Task task) {
+_showDialog(BuildContext context, Task task) async {
   showDialog(
       context: context,
       builder: (context) {
@@ -134,16 +137,17 @@ void _showDialog(BuildContext context, Task task) {
               child: Text("Sim"),
               onPressed: () {
                 Navigator.pop(context);
-                //apiService.deleteTask(task.id).then((isSuccess) {
-                  // if (isSuccess) {
-                  //   setState(() {});
-                  //   Scaffold.of(context).showSnackBar(
-                  //       SnackBar(content: Text("Delete data success")));
-                  // } else {
-                  //   Scaffold.of(context).showSnackBar(
-                  //       SnackBar(content: Text("Delete data failed")));
-                  // }
-                //});
+                ApiService _apiService = ApiService();
+                _apiService.deleteTask(task.id).then((isSuccess) {
+                  if (isSuccess) {
+                    // setState(() {});
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Delete data success")));
+                  } else {
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Delete data failed")));
+                  }
+                });
               },
             ),
             FlatButton(

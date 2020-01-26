@@ -58,15 +58,16 @@ class _FormTask extends State<FormTask> {
                           !_isFieldDescriptionValid) {
                         _scaffoldState.currentState.showSnackBar(
                           SnackBar(
-                            content: Text("Por favor, preencha todos os campos"),
+                            content:
+                                Text("Por favor, preencha todos os campos"),
                           ),
                         );
                         return;
                       }
                       setState(() => _isLoading = true);
-                      String description = _controllerDescription.text.toString();
-                      Task task =
-                          Task(description: description);
+                      String description =
+                          _controllerDescription.text.toString();
+                      Task task = Task(description: description);
                       if (widget.task == null) {
                         _apiService.createTask(task).then((isSuccess) {
                           setState(() => _isLoading = false);
