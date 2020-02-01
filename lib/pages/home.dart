@@ -5,11 +5,11 @@ import 'package:task/pages/form_task.dart';
 import 'package:task/service/api_service.dart';
 
 class Home extends StatefulWidget {
-  
-  Home();
+  //_HomeState createState() => _HomeState();
 
-  @override
-  _HomeState createState() => _HomeState();
+   State<StatefulWidget> createState() {
+    return _HomeState();
+  }
 }
 
 class _HomeState extends State<Home> {
@@ -140,7 +140,7 @@ _showDialog(BuildContext context, Task task) async {
                 ApiService _apiService = ApiService();
                 _apiService.deleteTask(task.id).then((isSuccess) {
                   if (isSuccess) {
-                    // setState(() {});
+                 //  setState(() {});
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text("Delete data success")));
                   } else {
